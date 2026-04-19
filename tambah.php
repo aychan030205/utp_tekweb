@@ -10,7 +10,12 @@ if(isset($_POST['simpan'])){
     $gambar = $_FILES['gambar']['name'];
     $tmp = $_FILES['gambar']['tmp_name'];
 
-    move_uploaded_file($tmp, "img/" . $gambar);
+    // CEK KALAU GAMBAR DIPILIH
+    if($gambar != ""){
+        move_uploaded_file($tmp, "img/" . $gambar);
+    } else {
+        $gambar = "";
+    }
 
     mysqli_query($conn, "INSERT INTO produk (nama, harga, deskripsi, gambar) 
     VALUES ('$nama', '$harga', '$deskripsi', '$gambar')");
@@ -41,9 +46,9 @@ if(isset($_POST['simpan'])){
         <label>Deskripsi</label>
         <textarea name="deskripsi" class="form-control mb-3" required></textarea>
 
-        <!-- INPUT GAMBAR (CUKUP 1) -->
+        <!-- INPUT GAMBAR -->
         <label>Upload Gambar</label>
-        <input type="file" name="gambar" class="form-control mb-2" required>
+        <input type="file" name="gambar" class="form-control mb-2">
 
         <button type="submit" name="simpan" class="btn btn-primary">Simpan</button>
         <a href="produk.php" class="btn btn-secondary">Kembali</a>

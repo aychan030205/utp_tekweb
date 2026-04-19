@@ -18,6 +18,7 @@ $data = mysqli_query($conn, "SELECT * FROM produk");
 
     <table class="table table-bordered">
         <tr>
+            <th>Gambar</th>
             <th>Nama</th>
             <th>Harga</th>
             <th>Deskripsi</th>
@@ -26,9 +27,20 @@ $data = mysqli_query($conn, "SELECT * FROM produk");
 
         <?php while($row = mysqli_fetch_assoc($data)) { ?>
         <tr>
+            <td>
+                <?php if($row['gambar'] != "") { ?>
+                    <img src="img/<?= $row['gambar']; ?>" width="100">
+                <?php } else { ?>
+                    Tidak ada gambar
+                <?php } ?>
+            </td>
+
             <td><?= $row['nama']; ?></td>
+
             <td>Rp <?= number_format($row['harga'], 0, ',', '.'); ?></td>
+
             <td><?= $row['deskripsi']; ?></td>
+
             <td>
                 <a href="edit.php?id=<?= $row['id']; ?>" class="btn btn-warning btn-sm">Edit</a>
                 <a href="hapus.php?id=<?= $row['id']; ?>" class="btn btn-danger btn-sm"
@@ -38,6 +50,7 @@ $data = mysqli_query($conn, "SELECT * FROM produk");
             </td>
         </tr>
         <?php } ?>
+
     </table>
 </div>
 
